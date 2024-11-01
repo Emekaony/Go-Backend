@@ -20,5 +20,5 @@ func main() {
 
 	// this is where we get the result back
 	result := <-ch
-	fmt.Printf("Got %d back\n", result)
+	fmt.Printf("Got %d back\n", result) // where we get th eresult does indeed matter
 }
