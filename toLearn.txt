@@ -1,0 +1,3 @@
+1. Defer and how it actually works.
+2. How to use interfaces as return types.
+3. Get comfortable with basic os stuff like files, and more.
