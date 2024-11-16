@@ -1,7 +1,9 @@
 package main
 
-import "learning/basics"
+import (
+	"learning/textbasics"
+)
 
 func main() {
-	basics.Run()
+	textbasics.Run()
 }
