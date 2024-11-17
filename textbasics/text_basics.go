@@ -1,6 +1,8 @@
 package textbasics
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type UserHeight struct {
 	feet   int
