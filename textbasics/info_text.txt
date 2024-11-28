@@ -1,3 +1,0 @@
-// John is 23 years old and lives in Sacramento
-// Helen is 21 years old and lives in Ohio
-// Kamsi is 19 years old and lives in Vacaville
