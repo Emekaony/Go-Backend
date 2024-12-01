@@ -3,7 +3,6 @@ package main
 import (
 	"banking/handlers"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -17,12 +16,16 @@ func start() {
 	// define our own multiplexer
 	// mux := http.NewServeMux()
 	router := mux.NewRouter()
-	// http routes
-	router.HandleFunc("/greet", handlers.Greet)
-	router.HandleFunc("/", handlers.SayHello)
-	router.HandleFunc("/customers/{customer_id}", handlers.GetCustomer)
-	router.HandleFunc("/customers", handlers.GetAllCustomers)
+	// get requests
+	router.HandleFunc("/greet", handlers.Greet).Methods(http.MethodGet)
+	router.HandleFunc("/", handlers.SayHello).Methods(http.MethodGet)
+	router.HandleFunc("/customers/{customer_id:[0-9]+}", handlers.GetCustomer).Methods(http.MethodGet) // that regex automatically handles cases where customer_id is not a number
+	router.HandleFunc("/customers", handlers.GetAllCustomers).Methods(http.MethodGet)
+	router.HandleFunc("/api/time", handlers.GetTime).Methods(http.MethodGet)
+
+	// create requests
+	router.HandleFunc("/customers/{customer_name}", handlers.CreateCustomer).Methods(http.MethodPost)
 
 	fmt.Println("Server is listening on port 8000")
-	log.Fatal(http.ListenAndServe("localhost:8000", router))
+	http.ListenAndServe("localhost:8000", router)
 }
