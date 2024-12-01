@@ -10,6 +10,7 @@ func main() {
 
 	http.HandleFunc("/", sayHello)
 
+	fmt.Println("Server is listening on port 8080")
 	http.ListenAndServe("localhost:8000", nil)
 }
 
