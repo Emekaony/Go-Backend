@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -12,11 +14,15 @@ func main() {
 }
 
 func start() {
+	// define our own multiplexer
+	// mux := http.NewServeMux()
+	router := mux.NewRouter()
 	// http routes
-	http.HandleFunc("/greet", handlers.Greet)
-	http.HandleFunc("/", handlers.SayHello)
-	http.HandleFunc("/customers", handlers.GetAllCustomers)
+	router.HandleFunc("/greet", handlers.Greet)
+	router.HandleFunc("/", handlers.SayHello)
+	router.HandleFunc("/customers/{customer_id}", handlers.GetCustomer)
+	router.HandleFunc("/customers", handlers.GetAllCustomers)
 
-	fmt.Println("Server is listening on port 8080")
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+	fmt.Println("Server is listening on port 8000")
+	log.Fatal(http.ListenAndServe("localhost:8000", router))
 }
