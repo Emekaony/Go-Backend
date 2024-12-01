@@ -1,4 +1,4 @@
-package main
+package tinkering
 
 import (
 	"encoding/json"
@@ -17,5 +17,7 @@ func RandomStuff() {
 	if err != nil {
 		log.Fatal("Error encoding the struct as json")
 	}
-	fmt.Printf("%v", tt)
+	fmt.Printf("This is what encoded json looks like in bytes: %v\n", tt)
+	// ffs := new(Human)
+	// _ = json.Unmarshal(tt, ffs)
 }

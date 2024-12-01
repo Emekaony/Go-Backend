@@ -2,6 +2,7 @@ package main
 
 import (
 	"banking/models"
+	"banking/tinkering"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -9,6 +10,7 @@ import (
 )
 
 func main() {
+	tinkering.RandomStuff()
 	// http routes
 	http.HandleFunc("/greet", greet)
 	http.HandleFunc("/", sayHello)
