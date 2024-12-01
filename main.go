@@ -1,8 +1,22 @@
 package main
 
-import "photomosaics/utils"
+import (
+	"fmt"
+	"net/http"
+)
 
 func main() {
-	filename, pixels := "dummy.png", 22
-	utils.Rotate(filename, pixels)
+	http.HandleFunc("/greet", greet)
+
+	http.HandleFunc("/", sayHello)
+
+	http.ListenAndServe("localhost:8000", nil)
+}
+
+func greet(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Greetings")
+}
+
+func sayHello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Home Page")
 }
