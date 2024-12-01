@@ -13,7 +13,7 @@ func GetTime(w http.ResponseWriter, r *http.Request) {
 	// make sure to set the content-type to json
 	w.Header().Set("Content-Type", "application/json")
 	responses := []models.Time{}
-	// we access the query parameters from the response object
+	// we access the query parameters from the request object
 	queryParams := r.URL.Query()
 	// this returns an array incase we passed multiple, pretty cool
 	location_var := strings.Split(queryParams["tz"][0], ",")
