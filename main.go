@@ -1,32 +1,36 @@
 package main
 
 import (
-	"banking/handlers"
+	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
-func main() {
-	start()
+type ApiResponse struct {
+	Message string `json:"message"`
 }
 
-func start() {
-	// define our own multiplexer
-	// mux := http.NewServeMux()
-	router := mux.NewRouter()
-	// get requests
-	router.HandleFunc("/", handlers.SayHello).Methods(http.MethodGet)
-	router.HandleFunc("/greet", handlers.Greet).Methods(http.MethodGet)
-	router.HandleFunc("/customers/{customer_id:[0-9]+}", handlers.GetCustomer).Methods(http.MethodGet) // that regex automatically handles cases where customer_id is not a number
-	router.HandleFunc("/customers", handlers.GetAllCustomers).Methods(http.MethodGet)
-	router.HandleFunc("/api/time", handlers.GetTime).Methods(http.MethodGet)
-	router.HandleFunc("/file", handlers.GetFile).Methods(http.MethodGet)
+// main entry point of every go code
+func main() {
+	// create the handler that will handle routes for you
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// make sure to write this to the responseWriter
+		fmt.Fprintln(w, "Hello world")
+	})
 
-	// create requests
-	router.HandleFunc("/customers/{customer_name}", handlers.CreateCustomer).Methods(http.MethodPost)
+	http.HandleFunc("/api", apiHandler)
 
-	fmt.Println("Server is listening on port 8000")
-	http.ListenAndServe("localhost:8000", router)
+	// now how do we make sure this server is available somewhere?
+	fmt.Println("server is listening on port 3000")
+	http.ListenAndServe("localhost:3000", nil)
+}
+
+func apiHandler(w http.ResponseWriter, _ *http.Request) {
+	apiResponse := ApiResponse{
+		Message: "Authorized for this API endpoint",
+	}
+
+	// now make sure the response header is in JSON format
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(apiResponse)
 }
